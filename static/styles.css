@@ -1,0 +1,275 @@
+/* styles.css */
+
+/* Apply border-box globally for consistent sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Theme Variables */
+:root {
+    /* Excel Theme Colors */
+    --primary-color: #217346; /* Excel Green */
+    --secondary-color: #1780C1; /* PowerBI Blue */
+    --background-color: #f5f5f5; /* Lighter Grey Background */
+    --text-color: #1a1a1a; /* Dark Text */
+    --grid-color: #d1d1d1; /* Lighter Grey Grid Lines */
+    --input-background: #ffffff;
+    --input-border: #cccccc;
+    --button-background: var(--secondary-color);
+    --button-text: #ffffff;
+    --section-background: #f5f5f5;
+    --footer-background: var(--section-background); /* Harmonized with section background */
+    --footer-text: var(--text-color);
+    --link-color: var(--secondary-color);
+    --link-hover-color: #136a99; /* Manually darkened */
+    --font-size-base: 16px;
+    --font-size-lg: 1.25rem;
+    --font-size-sm: 0.875rem;
+    --line-height: 1.5;
+    --font-family: 'Arial', sans-serif; /* Updated to a commonly available font */
+}
+
+[data-theme="dark"] {
+    /* Dark Mode Variables */
+    --background-color: #1a1a1a; /* Even Darker Grey */
+    --text-color: #e0e0e0; /* Lighter Text */
+    --grid-color: #3a3a3a; /* Darker Grid Lines */
+    --input-background: #2c2c2c;
+    --input-border: #555555;
+    --section-background: #2c2c2c;
+    --footer-background: #2c2c2c; /* Consistent with dark mode */
+    --footer-text: #e0e0e0;
+    --link-color: var(--secondary-color);
+    --link-hover-color: #136a99; /* Manually lightened */
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between; /* Ensures footer stays at the bottom */
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: var(--section-background);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Ensures children take full width */
+    flex: 1;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1.8em; /* Reduced font size for tighter spacing */
+    letter-spacing: 0.5px;
+}
+
+.expresive {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.8em; /* Adjusted to match h1 font size */
+    text-align: center;
+    letter-spacing: 0.3px;
+    margin: 5px 0; /* Reduced margins to tighten spacing */
+}
+
+.subtitle {
+    text-align: center; /* Center the catch-line */
+    font-size: var(--font-size-base);
+    margin: 5px 0 10px 0; /* Reduced top margin */
+    color: var(--text-color);
+}
+
+.player-input {
+    margin-bottom: 10px; /* Reduced bottom margin */
+    padding: 8px; /* Reduced padding */
+    background-color: var(--input-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.player-input h2 {
+    font-size: 1.3em; /* Reduced font size */
+    margin-bottom: 5px; /* Reduced bottom margin */
+    color: var(--secondary-color);
+    letter-spacing: 0.3px;
+}
+
+.player-input input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 5px; /* Reduced bottom margin */
+    padding: 6px; /* Reduced padding */
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    font-size: 0.95em; /* Slightly smaller font size */
+    letter-spacing: 0.3px;
+}
+
+.player-input input::placeholder {
+    color: #888888;
+}
+
+button {
+    background-color: var(--button-background);
+    color: var(--button-text);
+    border: none;
+    padding: 6px 18px; /* Reduced padding */
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95em; /* Slightly smaller font size */
+    letter-spacing: 0.3px;
+    margin-top: 5px; /* Added slight top margin */
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#darkModeToggle {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    font-size: 0.95em; /* Slightly smaller font size */
+    text-decoration: none;
+    margin-left: 5px; /* Reduced left margin */
+    letter-spacing: 0.3px;
+}
+
+#darkModeToggle:hover {
+    text-decoration: underline;
+}
+
+.results {
+    margin-top: 10px; /* Reduced top margin */
+    padding: 8px; /* Reduced padding */
+    background-color: var(--section-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.results h2 {
+    color: var(--primary-color);
+    margin-bottom: 5px; /* Reduced bottom margin */
+    font-size: 1.3em; /* Reduced font size */
+    letter-spacing: 0.3px;
+}
+
+.chart-container {
+    position: relative;
+    height: 250px; /* Reduced height for tighter layout */
+    margin-top: 10px; /* Reduced top margin */
+    width: 100%;
+}
+
+footer {
+    width: 100%;
+    background-color: var(--footer-background);
+    padding: 8px 0; /* Reduced padding for a tighter footer */
+    text-align: center;
+    margin-top: 15px; /* Reduced top margin */
+}
+
+footer p {
+    margin: 0;
+    color: var(--footer-text);
+    font-size: var(--font-size-sm);
+    line-height: 1.4; /* Slightly reduced line height */
+}
+
+footer a {
+    color: var(--link-color);
+    text-decoration: none;
+    margin: 0 3px; /* Reduced horizontal margin */
+    font-size: var(--font-size-sm); /* Ensure consistent font size */
+}
+
+footer a:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 8px; /* Reduced padding */
+    }
+
+    .player-input {
+        padding: 8px; /* Consistent reduced padding */
+    }
+
+    h1 {
+        font-size: 1.6em; /* Further reduced for smaller screens */
+    }
+
+    .expresive {
+        font-size: 1.6em; /* Adjusted to match h1 */
+        margin: 4px 0; /* Further reduced margins */
+    }
+
+    .subtitle {
+        font-size: var(--font-size-sm); /* Adjusted font size */
+        margin: 4px 0 8px 0; /* Further reduced margins */
+    }
+
+    .player-input h2 {
+        font-size: 1.1em; /* Further reduced font size */
+        margin-bottom: 4px; /* Further reduced margin */
+    }
+
+    .chart-container {
+        height: 200px; /* Further reduced height */
+        margin-top: 8px; /* Further reduced margin */
+    }
+
+    button {
+        padding: 6px 16px; /* Adjusted padding */
+        font-size: 0.9em; /* Adjusted font size */
+    }
+
+    #darkModeToggle {
+        font-size: 0.9em; /* Adjusted font size */
+        margin-left: 5px; /* Consistent reduced margin */
+    }
+
+    footer p {
+        font-size: var(--font-size-sm);
+        line-height: 1.3;
+    }
+
+    footer a {
+        margin: 0 2px; /* Further reduced margin */
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* styles.css */
+.expressive {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.8em;
+    text-align: center;
+    letter-spacing: 0.3px;
+    margin: 5px 0;
+}

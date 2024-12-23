@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SetLogic Mini</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Add viewport meta tag for mobile scaling -->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="static/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/assets/favicon-16x16.png">
+    <link rel="manifest" href="static/assets/site.webmanifest">
+   
+    <link href="https://fonts.googleapis.com/css2?family=Fluid+2&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="static\styles.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="expressive">Set Logic</h1>
+        <p class="subtitle">Predict a tennis match using 10000 Monte Carlo simulations.</p>
+        <!-- Display Flashed Messages -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        
+        <form method="post">
+            <div class="player-input">
+                <h2>Player 1</h2>
+                <input type="text" name="player1_name" placeholder="Name" required value="{{ request.form.player1_name }}">
+                <input type="number" name="player1_serve" placeholder="Serve Percentage (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player1_serve }}">
+                <input type="number" name="player1_break" placeholder="Break Point Conversion (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player1_break }}">
+                <input type="number" name="player1_first_serve_won" placeholder="First Serve Points Won (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player1_first_serve_won }}">
+                <input type="number" name="player1_second_serve_won" placeholder="Second Serve Points Won (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player1_second_serve_won }}">
+                
+                <!-- Current Match State Inputs for Player 1 -->
+                <input type="number" name="player1_sets_won" placeholder="Sets Won" min="0" required inputmode="decimal" value="{{ request.form.player1_sets_won }}">
+                <input type="number" name="player1_games_won" placeholder="Games Won in Current Set" min="0" required inputmode="decimal" value="{{ request.form.player1_games_won }}">
+                <input type="number" name="player1_points_won" placeholder="Points Won in Current Game" min="0" max="40" step="1" required inputmode="decimal" value="{{ request.form.player1_points_won }}">
+            </div>
+
+            <div class="player-input">
+                <h2>Player 2</h2>
+                <input type="text" name="player2_name" placeholder="Name" required value="{{ request.form.player2_name }}">
+                <input type="number" name="player2_serve" placeholder="Serve Percentage (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player2_serve }}">
+                <input type="number" name="player2_break" placeholder="Break Point Conversion (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player2_break }}">
+                <input type="number" name="player2_first_serve_won" placeholder="First Serve Points Won (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player2_first_serve_won }}">
+                <input type="number" name="player2_second_serve_won" placeholder="Second Serve Points Won (%)" step="0.01" min="0" max="100" required inputmode="decimal" value="{{ request.form.player2_second_serve_won }}">
+                
+                <!-- Current Match State Inputs for Player 2 -->
+                <input type="number" name="player2_sets_won" placeholder="Sets Won" min="0" required inputmode="decimal" value="{{ request.form.player2_sets_won }}">
+                <input type="number" name="player2_games_won" placeholder="Games Won in Current Set" min="0" required inputmode="decimal" value="{{ request.form.player2_games_won }}">
+                <input type="number" name="player2_points_won" placeholder="Points Won in Current Game" min="0" max="40" step="1" required inputmode="decimal" value="{{ request.form.player2_points_won }}">
+            </div>
+            <button type="submit">Calculate Probabilities</button>
+        </form>
+
+        {% if probabilities %}
+            <div class="results">
+                <h2>Results</h2>
+                <p>Probability of <strong>{{ probabilities.player1.name }}</strong> winning: {{ (probabilities.player1.prob * 100) | round(2) }}%</p>
+                <p>Probability of <strong>{{ probabilities.player2.name }}</strong> winning: {{ (probabilities.player2.prob * 100) | round(2) }}%</p>
+                
+                <!-- Combined Chart Section -->
+                <div class="chart-container">
+                    <canvas id="combinedChart" data-player1="{{ probabilities.player1.prob | round(4) }}" data-player2="{{ probabilities.player2.prob | round(4) }}" data-simulations-won-p1="{{ probabilities.player1.simulations_won }}" data-simulations-won-p2="{{ probabilities.player2.simulations_won }}" data-player1-name="{{ probabilities.player1.name }}" data-player2-name="{{ probabilities.player2.name }}"></canvas>
+                </div>
+                <button id="downloadChart">Download Chart</button>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>© 2024 KnoppCo Ventures. All rights reserved. <a href="https://knoppco.ca" target="_blank">knoppco.ca</a> | <a href="https://docs.knoppco.ca" target="_blank">Docs</a> | <a href="#" id="darkModeToggle">🌓</a></p>
+    </footer>
+    
+    <!-- Link to External JavaScript File -->
+    <script src="static/script.js"></script>
+</body>
+</html>
